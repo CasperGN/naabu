@@ -275,7 +275,12 @@ func (r *Runner) handleOutput() {
 		}
 
 		for host := range hostsOrig {
-			gologger.Infof("Found %d ports on host %s (%s)\n", len(ports), host, hostIp)
+			// handle textual diff on 1 port vs. many
+			if len(hostsOrig) == 1 {
+				gologger.Infof("Found %d port on host %s (%s)\n", len(ports), host, hostIp)
+			} else {
+				gologger.Infof("Found %d ports on host %s (%s)\n", len(ports), host, hostIp)
+			}
 
 			// console output
 			if r.options.JSON {
